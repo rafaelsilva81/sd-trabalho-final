@@ -18,10 +18,9 @@ public class UDPClient {
     this.port = port;
     try {
       socket = new DatagramSocket();
-    } catch (Exception e) {
+    } catch (SocketException e) {
       e.printStackTrace();
     }
-
   }
 
   // Send request
@@ -51,7 +50,7 @@ public class UDPClient {
       }
 
       return new JSONObject(new String(packet.getData()));
-    } catch (Exception e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
     return null;

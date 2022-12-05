@@ -9,6 +9,7 @@ public class Dispatcher {
   public JSONObject invoke(JSONObject request) {
     JSONObject response = new JSONObject();
 
+    String id = request.getString("request_id");
     String serviceName = request.getString("service");
     String operationName = request.getString("operation");
     JSONObject args = request.getJSONObject("args");
@@ -25,6 +26,9 @@ public class Dispatcher {
 
       // Invoke method
       response = (JSONObject) method.invoke(skeleton, args);
+
+      // Add request
+      response.put("request_id", id);
 
     } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | NoSuchMethodException
         | SecurityException | IllegalArgumentException | InvocationTargetException e) {

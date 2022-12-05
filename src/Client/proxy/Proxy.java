@@ -13,6 +13,8 @@ public class Proxy {
   public String doOperation(String serviceName, String operationName, JSONObject args) throws RequestFailedException {
     JSONObject request = new JSONObject();
 
+    // get random uuid
+    request.put("request_id", java.util.UUID.randomUUID().toString());
     request.put("service", serviceName);
     request.put("operation", operationName);
     request.put("args", args);

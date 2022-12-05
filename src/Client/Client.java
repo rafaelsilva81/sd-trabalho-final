@@ -26,7 +26,7 @@ public class Client {
       System.out.print("Opção: ");
 
       int option = reader.nextInt();
-      if (option == 1 || option == 2) {
+      if (option == 1) {
         while (!isLoggedIn) {
           System.out.println("\n \nPor favor, faça login para continuar.");
           System.out.println("Username:");

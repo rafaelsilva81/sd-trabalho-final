@@ -1,5 +1,6 @@
 package Server;
 
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 
@@ -24,32 +25,35 @@ public class UDPServer {
         // Create a new thread to handle the request
         new Thread() {
           public void run() {
+
+            String message = new String(client.getData());
+            System.out.println("Recebido: " + message);
+
+            JSONObject request = new JSONObject(message);
+
+            // Dispatch the request
+            String response = dispatcher.invoke(request).toString();
+            System.out.println("Enviado: " + response);
+
+            // Send the response
+            DatagramPacket reply = new DatagramPacket(response.getBytes(), response.getBytes().length,
+                client.getAddress(), client.getPort());
             try {
-              String message = new String(client.getData());
-              System.out.println("Recebido: " + message);
-
-              JSONObject request = new JSONObject(message);
-
-              // Dispatch the request
-              String response = dispatcher.invoke(request).toString();
-              System.out.println("Enviado: " + response);
-
-              // Send the response
-              DatagramPacket reply = new DatagramPacket(response.getBytes(), response.getBytes().length,
-                  client.getAddress(), client.getPort());
               server.send(reply);
-
-            } catch (Exception e) {
-              System.out.println("Erro: " + e.getMessage());
+            } catch (IOException e) {
+              // TODO Auto-generated catch block
+              e.printStackTrace();
             }
+
           }
         }.start();
 
       }
 
-    } catch (Exception e) {
-      System.out.println("Erro: " + e.getMessage());
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+
   }
 
 }
