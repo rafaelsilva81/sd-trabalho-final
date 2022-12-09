@@ -6,6 +6,9 @@ import org.json.JSONObject;
 
 import Server.util.CSVUtil;
 
+/* 
+  * Classe que representa o serviço de autenticação
+*/
 public class AuthService {
 
   private CSVUtil csvUtil = new CSVUtil("src\\Server\\data\\users.csv");

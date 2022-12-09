@@ -4,8 +4,13 @@ import org.json.JSONObject;
 
 import Client.exceptions.RequestFailedException;
 
+/* 
+  * Classe que representa o proxy do serviço de votação
+  * Extende a classe Proxy
+*/
 public class VoteProxy extends Proxy {
 
+  // Método remoto 01 - Adiciona um voto com as opções passadas
   public String vote(String username, int option) {
     JSONObject args = new JSONObject();
     args.put("username", username);
@@ -41,6 +46,7 @@ public class VoteProxy extends Proxy {
 
   }
 
+  // Método remoto 02 - Lista os votos
   public String list() {
 
     String response;

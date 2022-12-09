@@ -6,12 +6,16 @@ import org.json.JSONObject;
 
 import Server.util.CSVUtil;
 
+/* 
+  * Classe que representa o serviço de autenticação
+*/
 public class VoteService {
-  private CSVUtil csvUtil = new CSVUtil("src\\Server\\data\\votes.csv");
+  /* OPTIMIZE: Usar um banco de dados real ao invés de um CSV */
+  private CSVUtil csvUtil = new CSVUtil("src\\Server\\data\\votes.csv"); // Pega o CSV de votos
 
   public JSONObject vote(String username, String option) {
     JSONObject response = new JSONObject();
-    // check if user already voted
+    // checa se o usuário já votou
     List<String[]> votes = csvUtil.read();
     for (String[] vote : votes) {
       if (vote[0].equals(username)) {
@@ -21,8 +25,10 @@ public class VoteService {
       }
     }
 
-    // add vote to csv
+    // adiciona o voto no CSV
     csvUtil.addLine(username, option);
+
+    // monta a resposta
     response.put("status", 200);
     response.put("message", "Voto computado com sucesso!");
     return response;

@@ -13,6 +13,9 @@ import com.opencsv.CSVReader;
 import com.opencsv.CSVWriter;
 import com.opencsv.exceptions.CsvException;
 
+/* 
+  * Classe utilitária para manipulação de arquivos CSV
+*/
 public class CSVUtil {
   private CSVReader csvReader;
   private CSVWriter csvWriter;
@@ -24,18 +27,17 @@ public class CSVUtil {
       csvReader = new CSVReader(new FileReader(path));
       csvWriter = new CSVWriter(new FileWriter(path, true));
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
   }
 
   public List<String[]> read() {
+    // Leitura de arquivo CSV
     List<String[]> lines = null;
     try {
       lines = csvReader.readAll();
     } catch (IOException | CsvException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 
@@ -43,12 +45,11 @@ public class CSVUtil {
   }
 
   public void addLine(String... line) {
-    // add line without quotes
+    // Adiciona linha (sem aspas)
     csvWriter.writeNext(line, false);
     try {
       csvWriter.flush();
     } catch (IOException e) {
-      // TODO Auto-generated catch block
       e.printStackTrace();
     }
 

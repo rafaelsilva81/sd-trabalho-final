@@ -9,8 +9,6 @@ import org.json.JSONObject;
 import Server.dispatchers.Dispatcher;
 
 public class UDPServer {
-  // Simple UDP Socket Server
-
   public static void main(String[] args) {
     Dispatcher dispatcher = new Dispatcher();
     try {
@@ -22,7 +20,7 @@ public class UDPServer {
         DatagramPacket client = new DatagramPacket(buffer, buffer.length);
         server.receive(client);
 
-        // Create a new thread to handle the request
+        // Cria novo thread para tratar o pedido
         new Thread() {
           public void run() {
 
@@ -31,17 +29,16 @@ public class UDPServer {
 
             JSONObject request = new JSONObject(message);
 
-            // Dispatch the request
+            // Despacha o request
             String response = dispatcher.invoke(request).toString();
             System.out.println("Enviado: " + response);
 
-            // Send the response
+            // Envia a response
             DatagramPacket reply = new DatagramPacket(response.getBytes(), response.getBytes().length,
                 client.getAddress(), client.getPort());
             try {
               server.send(reply);
             } catch (IOException e) {
-              // TODO Auto-generated catch block
               e.printStackTrace();
             }
 

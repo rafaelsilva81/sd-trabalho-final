@@ -23,7 +23,7 @@ public class UDPClient {
     }
   }
 
-  // Send request
+  // Função SEND - Envia um request
   public void send(JSONObject request) {
     try {
       byte[] buffer = request.toString().getBytes();
@@ -34,7 +34,7 @@ public class UDPClient {
     }
   }
 
-  // Get response
+  // Função RECEIVE - Recebe uma response
   public JSONObject receive() throws SocketTimeoutException {
     try {
       byte[] buffer = new byte[2048];
